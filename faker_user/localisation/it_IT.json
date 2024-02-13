@@ -1,0 +1,20 @@
+{
+    "select_locale": "Seleziona la lingua:",
+    "submit_button": "Invia",
+    "first_name": "Nome",
+    "last_name": "Cognome",
+    "email": "Email",
+    "phone_number": "Numero di telefono",
+    "address": "Indirizzo",
+    "postalcode": "Codice postale",
+    "date_of_birth": "Data di nascita",
+    "login": "Login",
+    "password": "Password",
+    "selected_complexity": "Complessità selezionata",
+    "easy_complexity": "Facile",
+    "medium_complexity": "Medio",
+    "hard_complexity": "Difficile",
+    "len_password": "Lunghezza password",
+    "sld": "Sottodominio",
+    "tld": "Dominio"
+}

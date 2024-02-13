@@ -1,0 +1,20 @@
+{
+    "select_locale": "Виберіть локалізацію:",
+    "submit_button": "Відправити",
+    "first_name": "Ім'я",
+    "last_name": "Прізвище",
+    "email": "Електронна пошта",
+    "phone_number": "Номер телефону",
+    "address": "Адреса",
+    "postalcode": "Поштовий індекс",
+    "date_of_birth": "Дата народження",
+    "login": "Логін",
+    "password": "Пароль",
+    "selected_complexity": "Обрана складність",
+    "easy_complexity": "Легкий",
+    "medium_complexity": "Середній",
+    "hard_complexity": "Складний",
+    "len_password": "Довжина пароля",
+    "sld": "Піддомен",
+    "tld": "Домен"
+}

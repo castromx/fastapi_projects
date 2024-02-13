@@ -1,0 +1,20 @@
+{
+    "select_locale": "Select Locale:",
+    "submit_button": "Submit",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "email": "Emeil",
+    "phone_number": "Phone number",
+    "address": "Address",
+    "postalcode": "Postalcode",
+    "date_of_birth": "Date of birth",
+    "login": "Login",
+    "password": "Password",
+    "selected_complexity": "Selected complexity",
+    "easy_complexity": "Easy",
+    "medium_complexity": "Medium",
+    "hard_complexity": "Hard",
+    "len_password": "Len password",
+    "sld": "Subdomain",
+    "tld": "Domain"
+}

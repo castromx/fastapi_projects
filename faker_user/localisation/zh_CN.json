@@ -1,0 +1,20 @@
+{
+    "select_locale": "选择语言：",
+    "submit_button": "提交",
+    "first_name": "名字",
+    "last_name": "姓氏",
+    "email": "电子邮件",
+    "phone_number": "电话号码",
+    "address": "地址",
+    "postalcode": "邮政编码",
+    "date_of_birth": "出生日期",
+    "login": "登录",
+    "password": "密码",
+    "selected_complexity": "选择的复杂性",
+    "easy_complexity": "简单",
+    "medium_complexity": "中等",
+    "hard_complexity": "困难",
+    "len_password": "密码长度",
+    "sld": "子域",
+    "tld": "域名"
+}

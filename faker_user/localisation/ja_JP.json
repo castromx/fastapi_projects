@@ -1,0 +1,20 @@
+{
+    "select_locale": "言語を選択:",
+    "submit_button": "送信",
+    "first_name": "名",
+    "last_name": "姓",
+    "email": "Eメール",
+    "phone_number": "電話番号",
+    "address": "住所",
+    "postalcode": "郵便番号",
+    "date_of_birth": "生年月日",
+    "login": "ログイン",
+    "password": "パスワード",
+    "selected_complexity": "選択された複雑さ",
+    "easy_complexity": "簡単",
+    "medium_complexity": "普通",
+    "hard_complexity": "難しい",
+    "len_password": "パスワードの長さ",
+    "sld": "サブドメイン",
+    "tld": "ドメイン"
+}
