@@ -5,6 +5,9 @@ APІ для генерації фейкових данних на базі бі�
 ![bandicam 2024-02-13 18-26-58-879](https://github.com/castromx/fastapi_projects/assets/96194271/7abd017e-ef48-4ccf-85fa-6b1dc9281223)
 ![bandicam 2024-02-13 18-27-55-371](https://github.com/castromx/fastapi_projects/assets/96194271/f7d0019f-ff13-46e4-b788-dc6e418664cb)
 
+![bandicam 2024-02-13 18-28-09-186](https://github.com/castromx/fastapi_projects/assets/96194271/1d0cacdf-a758-4663-8135-842601a229af)
+![bandicam 2024-02-13 18-28-20-446](https://github.com/castromx/fastapi_projects/assets/96194271/23b84b21-55a8-41f1-a8cc-f6ca4ae92ad0)
+
 
 
 Додав локалізацію, яка опрацьовується через кукі:
