@@ -1,30 +1,28 @@
-from sqlalchemy import Column, String, Boolean, Integer, ForeignKey
-from sqlalchemy.orm import relationship, declarative_base
-
-# Таблиці баз данних
+from sqlalchemy import ForeignKey, MetaData
+from sqlalchemy.orm import relationship, declarative_base, Mapped, mapped_column
 
 Base = declarative_base()
+
+metadata = MetaData()
 
 class UserModel(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, index=True)
-    password = Column(String)
-    email = Column(String, index=True)
-    active = Column(Boolean, default=True)
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    username: Mapped[str] = mapped_column(unique=True)
+    password: Mapped[str]
+    email: Mapped[str] = mapped_column(unique=True)
+    active: Mapped[bool] = mapped_column(default=True)
 
-    items = relationship('ItemModel', back_populates='owner')
-    # У користувача є items, які він створив
+    items: Mapped[int] = relationship('ItemModel', back_populates='owner')
 
 
 class ItemModel(Base):
     __tablename__ = 'items'
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String)
-    owner_id = Column(Integer, ForeignKey('users.id'))
-    # Створення зовнішнього ключа, який посилається на колонку id в таблиці users
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    title: Mapped[str] = mapped_column(index=True)
+    description: Mapped[str]
+    owner_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
 
-    owner = relationship('UserModel', back_populates='items')
+    owner: Mapped[str] = relationship('UserModel', back_populates='items')
