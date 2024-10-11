@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
-from .auth_routes import get_current_auth_user
-from .models import ItemModel, UserModel, Base
-from .schemas import ItemBase, ItemCreate, Item
-from .database_config.database import get_db, engine
+from database_config.auth_routes import get_current_auth_user
+from database_config.models import ItemModel, UserModel, Base
+from database_config.schemas import ItemCreate, Item
+from database_config.database import get_db, engine
 
 router = APIRouter(tags=['items'])
 

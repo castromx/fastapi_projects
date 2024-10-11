@@ -9,29 +9,24 @@ from fastapi import (
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
-from .database_config import utils as auth_utils
-from .schemas import TokenInfo, UserSchema
-from .models import Base, UserModel
-from .database_config.database import get_db, engine
+from database_config import utils as auth_utils
+from database_config.schemas import TokenInfo, UserSchema
+from database_config.models import Base, UserModel
+from database_config.database import get_db, engine
 
-'''
-tokenUrl містить URL-адресу, яку клієнт (інтерфейс, запущений у браузері користувача) 
-використовуватиме для надсилання username та password для отримання маркера (дозволу/авторизації).
-'''
+
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="/login/",
 )
 
 
-# Створюється роутер з тегом auth
 router = APIRouter(tags=['auth']) 
 
 
 Base.metadata.create_all(bind=engine)
 
 
-# Функція для валідації користувача, яка перевіряє чи користувач зараз є зареєстрованим, та активним
 def validate_auth_user(
     username: str = Form(),
     password: str = Form(),
@@ -52,7 +47,6 @@ def validate_auth_user(
     return user
 
 
-# Реєстрація користувача
 def register_user(
     user_data: UserSchema,
     db: Session = Depends(get_db),
@@ -69,7 +63,6 @@ def register_user(
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    # Записування данних в jwt для хешування
     jwt_payload = {
         "sub": new_user.username,
         "username": new_user.username,
@@ -120,7 +113,7 @@ def get_current_active_auth_user(
         detail="User inactive",
     )
 
-# Ендпоінт для авторизації користувача, використовує залежність для валідації користувача, та передає данні на кодування
+
 @router.post("/login", response_model=TokenInfo)
 def auth_user_issue_jwt(
     user: UserModel = Depends(validate_auth_user),
@@ -136,7 +129,7 @@ def auth_user_issue_jwt(
         token_type="Bearer",
     )
 
-# Повертає jwt токен зареєстрованого користувача
+
 @router.post("/register", response_model=TokenInfo)
 def register_user_and_issue_jwt(
     user: UserModel = Depends(register_user),
@@ -144,7 +137,6 @@ def register_user_and_issue_jwt(
     return user
 
 
-# Показує інформацію про користувача
 @router.get("/users/me")
 def auth_user_check_self_info(
     payload: dict = Depends(get_current_token_payload),

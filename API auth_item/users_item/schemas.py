@@ -1,5 +1,4 @@
 from pydantic import BaseModel, EmailStr
-# pydantic схеми для валідації данних в запитах
 
 class TokenInfo(BaseModel):
     access_token: str
