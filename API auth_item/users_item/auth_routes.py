@@ -10,9 +10,9 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
 from database_config import utils as auth_utils
-from database_config.schemas import TokenInfo, UserSchema
-from database_config.models import Base, UserModel
-from database_config.database import get_db, engine
+from .schemas import TokenInfo, UserSchema
+from .models import Base, UserModel
+from database_config.database import get_async_session, engine
 
 
 
@@ -30,7 +30,7 @@ Base.metadata.create_all(bind=engine)
 def validate_auth_user(
     username: str = Form(),
     password: str = Form(),
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_async_session),
 ):
     unauthed_exc = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -49,7 +49,7 @@ def validate_auth_user(
 
 def register_user(
     user_data: UserSchema,
-    db: Session = Depends(get_db),
+    db: Session = Depends(get_async_session),
 ):
     existing_user = db.query(UserModel).filter(UserModel.username == user_data.username).first()
     if existing_user:
@@ -91,7 +91,7 @@ def get_current_token_payload(
 
 
 def get_current_auth_user(
-    payload: dict = Depends(get_current_token_payload), db: Session = Depends(get_db)
+    payload: dict = Depends(get_current_token_payload), db: Session = Depends(get_async_session)
 ) -> UserModel:
     username: str | None = payload.get("sub")
     user = db.query(UserModel).filter(UserModel.username == username).first()
