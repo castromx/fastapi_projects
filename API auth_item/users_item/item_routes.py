@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from .auth_routes import get_current_auth_user
-from .models import ItemModel, UserModel, Base
-from .schemas import ItemCreate, Item
+from database_config.utils import get_current_auth_user
+from database_config.models import ItemModel, UserModel, Base
+from database_config.schemas import ItemCreate, Item
 from database_config.database import get_async_session, engine
 
 router = APIRouter(tags=['items'])
@@ -10,7 +10,7 @@ router = APIRouter(tags=['items'])
 Base.metadata.create_all(bind=engine)
 
 
-# Створення ендпоінту /items з моделлю відповіді - Item
+
 @router.post("/items", response_model=Item)
 def create_item(
     item: ItemCreate,
@@ -24,7 +24,7 @@ def create_item(
     db.refresh(new_item)
     return new_item
 
-# Дістаємо item по його id в базі данних
+
 @router.get("/items/{item_id}", response_model=Item)
 def read_item(item_id: int, db: Session = Depends(get_async_session)):
     item = db.query(ItemModel).filter(ItemModel.id == item_id).first()
@@ -35,7 +35,7 @@ def read_item(item_id: int, db: Session = Depends(get_async_session)):
         detail="Item not found",
     )
 
-# Показує всі item користувача
+
 @router.get("/items", response_model=list[Item])
 def read_user_items(
     current_user: UserModel = Depends(get_current_auth_user),
