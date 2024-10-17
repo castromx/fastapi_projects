@@ -1,24 +1,19 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from database_config.utils import get_current_auth_user
-from database_config.models import ItemModel, UserModel, Base
+from database_config.crud import get_current_auth_user
+from database_config.models import ItemModel, UserModel
 from database_config.schemas import ItemCreate, Item
-from database_config.database import get_async_session, engine
+from database_config.database import get_async_session
 
 router = APIRouter(tags=['items'])
 
-Base.metadata.create_all(bind=engine)
 
 
 
 @router.post("/items", response_model=Item)
 def create_item(
-    item: ItemCreate,
-    db: Session = Depends(get_async_session),
-    current_user: UserModel = Depends(get_current_auth_user),
-):
+    item: ItemCreate, db: Session = Depends(get_async_session), current_user: UserModel = Depends(get_current_auth_user)):
     new_item = ItemModel(**item.dict(), owner_id=current_user.id)
-    print(new_item)
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
