@@ -1,5 +1,8 @@
 from fastapi import APIRouter, Depends
-from database_config.schemas import TokenInfo
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from database_config.database import get_async_session
+from database_config.schemas import TokenInfo, UserSchema
 from database_config.models import UserModel
 from database_config import crud, utils
 
@@ -24,10 +27,12 @@ def auth_user_issue_jwt(
 
 
 @router.post("/register", response_model=TokenInfo)
-def register_user_and_issue_jwt(
-    user: UserModel = Depends(crud.register_user),
+async def register_user_endpoint(
+    user_data: UserSchema,
+    db: AsyncSession = Depends(get_async_session)
 ):
-    return user
+    return await crud.register_user(user_data, db)
+
 
 
 @router.get("/users/me")

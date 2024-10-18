@@ -35,7 +35,7 @@ async def validate_auth_user(
 
 async def register_user(
         user_data: schemas.UserSchema, db: AsyncSession
-):
+) -> schemas.TokenInfo:
     result = await db.execute(select(models.UserModel).filter(models.UserModel.username == user_data.username))
     existing_user = result.scalars().first()
 
@@ -65,6 +65,7 @@ async def register_user(
         access_token=token,
         token_type="Bearer",
     )
+
 
 
 async def get_current_token_payload(
