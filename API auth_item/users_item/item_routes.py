@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from database_config.crud import get_current_auth_user
-from database_config.models import ItemModel, UserModel
-from database_config.schemas import ItemCreate, Item
-from database_config.database import get_async_session
+from database.crud import get_current_auth_user
+from database.models import ItemModel, UserModel
+from database.schemas import ItemCreate, Item
+from database.database import get_async_session
 
 router = APIRouter(tags=['items'])
 

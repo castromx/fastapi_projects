@@ -2,7 +2,7 @@ from logging.config import fileConfig
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from alembic import context
-from database_config.database import Base, DATABASE_URL
+from database.database import Base, DATABASE_URL
 
 config = context.config
 
