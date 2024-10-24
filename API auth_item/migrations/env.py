@@ -1,15 +1,15 @@
 from logging.config import fileConfig
 from sqlalchemy import pool
-from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
+from sqlalchemy.ext.asyncio import create_async_engine
 from alembic import context
 from database.database import Base, DATABASE_URL
 
 config = context.config
 
-# Налаштовуємо URL для бази даних
+
 config.set_main_option('sqlalchemy.url', DATABASE_URL)
 
-# Читаємо лог-конфігурацію з файлу
+
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 

@@ -47,5 +47,3 @@ def validate_password(password: str, hashed_password: bytes) -> bool:
         password=password.encode(),
         hashed_password=hashed_password,
     )
-
-
