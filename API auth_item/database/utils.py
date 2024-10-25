@@ -36,14 +36,14 @@ def decode_jwt(token: str | bytes, public_key: str = settings.auth_jwt.public_ke
     return decoded
 
 
-def hash_password(password: str) -> bytes:
+def hash_password(password: str) -> str:
     salt = bcrypt.gensalt()
     pwd_bytes: bytes = password.encode()
-    return bcrypt.hashpw(pwd_bytes, salt)
+    hashed = bcrypt.hashpw(pwd_bytes, salt)
+    return hashed.decode()
 
 
-def validate_password(password: str, hashed_password: bytes) -> bool:
-    return bcrypt.checkpw(
-        password=password.encode(),
-        hashed_password=hashed_password,
-    )
+
+def validate_password(password: str, hashed_password: str) -> bool:
+    return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+
