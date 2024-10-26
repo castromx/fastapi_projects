@@ -37,7 +37,7 @@ async def register_user_endpoint(
 
 @router.get("/users/me")
 def auth_user_check_self_info(
-    payload: dict = Depends(crud.get_current_token_payload),
+    payload: dict = Depends(utils.get_current_token_payload),
     user: UserModel = Depends(crud.get_current_active_auth_user),
 ):
     iat = payload.get("iat")
