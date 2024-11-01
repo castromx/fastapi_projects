@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends
+from http.client import responses
+from urllib import response
+
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.database import get_async_session
@@ -7,13 +10,18 @@ from database.models import UserModel
 from database import crud, utils
 
 
-router = APIRouter(tags=['auth']) 
+router = APIRouter(tags=['auth'])
 
 
 @router.post("/login", response_model=TokenInfo)
-def auth_user_issue_jwt(
+async def auth_user_issue_jwt(
     user: UserModel = Depends(crud.validate_auth_user),
 ):
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+        )
     jwt_payload = {
         "sub": user.username,
         "username": user.username,
@@ -34,9 +42,8 @@ async def register_user_endpoint(
     return await crud.register_user(user_data, db)
 
 
-
 @router.get("/users/me")
-def auth_user_check_self_info(
+async def auth_user_check_self_info(
     payload: dict = Depends(utils.get_current_token_payload),
     user: UserModel = Depends(crud.get_current_active_auth_user),
 ):
