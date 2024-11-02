@@ -1,9 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.future import select
-
 from database import crud
-from database.models import ItemModel, UserModel
+from database.models import UserModel
 from database.schemas import ItemCreate, Item
 from database.database import get_async_session
 

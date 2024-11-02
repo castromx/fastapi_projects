@@ -27,9 +27,6 @@ async def test_login_user():
     async with AsyncClient(app=app, base_url="http://test") as client:
         response = await client.post(
             "/login/",
-            data={"username": "testuser", 
+            data={"username": "testuser",
                   "password": "testpassword"})
     assert response.status_code == 307
-
-
-
