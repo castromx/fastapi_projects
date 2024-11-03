@@ -24,6 +24,7 @@ async def auth_user_issue_jwt(
         "email": user.email,
     }
     token = utils.encode_jwt(jwt_payload)
+    print("Login response content:", token)
     return TokenInfo(
         access_token=token,
         token_type="Bearer",
