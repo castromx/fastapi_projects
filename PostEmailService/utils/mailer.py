@@ -1,13 +1,9 @@
-import logging
-from .config import HOST, USERNAME, PASSWORD, PORT, MailBody
+from aiosmtplib import SMTP, SMTPException
 from email.mime.text import MIMEText
-from smtplib import SMTP, SMTP_SSL
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+from utils.config import HOST, USERNAME, PASSWORD, PORT, MailBody
 
 
-def send_mail(data: dict | None = None):
-    logging.info("Start sending email...")
+async def send_mail(data: dict | None = None):
     try:
         msg = MailBody(**data)
         message = MIMEText(msg.body, "html")
@@ -15,22 +11,17 @@ def send_mail(data: dict | None = None):
         message["To"] = ", ".join(msg.to)
         message["Subject"] = msg.subject
 
-        logging.info(f"Prepared email: {message.as_string()}")
+        async with SMTP(hostname=HOST, port=int(PORT), use_tls=(int(PORT) == 465)) as smtp:
+            await smtp.connect()
+            if int(PORT) != 465:
+                await smtp.starttls()
 
-        if int(PORT) == 465:
-            with SMTP_SSL(HOST, int(PORT)) as server:
-                server.login(USERNAME, PASSWORD)
-                server.send_message(message)
-                logging.info("Email sent via SSL.")
-        else:
-            with SMTP(HOST, int(PORT)) as server:
-                server.ehlo()
-                server.starttls()
-                server.login(USERNAME, PASSWORD)
-                server.send_message(message)
-                logging.info("Email sent via STARTTLS.")
-
+            await smtp.login(USERNAME, PASSWORD)
+            await smtp.send_message(message)
         return {"status": 200, "errors": None}
+
+    except SMTPException as e:
+        return {"status": 500, "errors": str(e)}
+
     except Exception as e:
-        logging.error(f"Failed to send email: {e}")
         return {"status": 500, "errors": str(e)}
