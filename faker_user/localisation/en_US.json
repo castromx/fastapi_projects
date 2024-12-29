@@ -16,5 +16,6 @@
     "hard_complexity": "Hard",
     "len_password": "Len password",
     "sld": "Subdomain",
-    "tld": "Domain"
+    "tld": "Domain",
+    "file_download": "File download"
 }

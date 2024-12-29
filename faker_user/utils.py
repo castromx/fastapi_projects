@@ -1,4 +1,5 @@
-from random import choice, randint
+from random import choice
+import aiofiles as aiof
 import string
 
 
@@ -37,3 +38,11 @@ async def rename(adress, SLD, TLD): # Приймає адресу, домен і
     new_TLD = f'.{TLD}'
     # Об'єднуємо їх в пустий рядок
     return ''.join([current_name, new_SLD, new_TLD])
+
+
+async def download_file(data: dict):
+    async with aiof.open('data.txt', 'w', encoding='utf-8') as file:
+        for key, value in data.items():
+            await file.write(f'{key}: {value}\n')
+        await file.flush()
+    return file.name

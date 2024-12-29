@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Form, Request, Cookie, HTTPException, status
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from faker import Faker
-from utils import rename, generate
+from utils import rename, generate, download_file
 from localisation.reader import translate
 
 app = FastAPI() # Екземпляр класу API
@@ -79,7 +79,18 @@ async def submit_form(
     if checkbox9:
         generated_data['password'] = generate(selected_complexity, len_password) 
 
+
     if generated_data:
+        await download_file(generated_data)
         return templates.TemplateResponse("result.html", {"request": request, "generated_data": generated_data, 'texts': texts})
     # Повернення помилки статусу 400, якщо користувач не вибрав данні для генерації (відправив пустий словник)
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="The generated data cannot be empty")
+
+@app.get("/download", response_class=FileResponse)
+async def download_generated_file():
+    file_path = "data.txt" 
+    return FileResponse(
+        path=file_path,
+        media_type="application/octet-stream", 
+        filename="data.txt" 
+    )

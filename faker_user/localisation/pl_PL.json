@@ -16,5 +16,6 @@
     "hard_complexity": "Trudny",
     "len_password": "Długość hasła",
     "sld": "Poddomena",
-    "tld": "Domena"
+    "tld": "Domena",
+    "file_download": "Pobierz plik"
 }

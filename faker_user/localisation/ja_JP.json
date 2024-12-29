@@ -16,5 +16,6 @@
     "hard_complexity": "難しい",
     "len_password": "パスワードの長さ",
     "sld": "サブドメイン",
-    "tld": "ドメイン"
+    "tld": "ドメイン",
+    "file_download": "ファイルのダウンロード"
 }

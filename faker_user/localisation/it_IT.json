@@ -16,5 +16,6 @@
     "hard_complexity": "Difficile",
     "len_password": "Lunghezza password",
     "sld": "Sottodominio",
-    "tld": "Dominio"
+    "tld": "Dominio",
+    "file_download": "Scarica file"
 }

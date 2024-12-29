@@ -16,5 +16,6 @@
     "hard_complexity": "어려운",
     "len_password": "비밀번호 길이",
     "sld": "서브도메인",
-    "tld": "도메인"
+    "tld": "도메인",
+    "file_download": "파일 다운로드"
 }
